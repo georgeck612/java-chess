@@ -12,6 +12,7 @@ public class Rook extends Piece {
     public Rook(String color, String pos, Board board) {
         super(color, pos, "R", board);
         this.type = "R";
+        this.value = 5;
 
         if (color.equals("white")) {
             this.capImageFile = "res/captured/wR.png";

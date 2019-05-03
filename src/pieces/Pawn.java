@@ -14,6 +14,7 @@ public class Pawn extends Piece {
     public Pawn(String color, String pos, Board board) {
         super(color, pos, "P", board);
         this.type = "P";
+        this.value = 1;
         if (color.equals("white")) {
             this.capImageFile = "res/captured/wP.png";
             this.dispImage = new Image(0, 0, "res/images/wP.png");

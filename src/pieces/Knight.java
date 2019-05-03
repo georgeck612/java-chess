@@ -12,6 +12,7 @@ public class Knight extends Piece {
     public Knight(String color, String pos, Board board) {
         super(color, pos, "N", board);
         this.type = "N";
+        this.value = 3;
         if (color.equals("white")) {
             this.capImageFile = "res/captured/wN.png";
             this.dispImage = new Image(0, 0, "res/images/wN.png");
