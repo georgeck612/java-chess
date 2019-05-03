@@ -60,7 +60,7 @@ public class Move {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Move)) {
+        if (!(obj instanceof Move)) {
             return false;
         }
 

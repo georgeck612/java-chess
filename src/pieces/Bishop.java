@@ -12,6 +12,7 @@ public class Bishop extends Piece {
 
     public Bishop(String color, String pos, Board board) {
         super(color, pos, "B", board);
+        this.value = 3;
         this.type = "B";
         if (color.equals("white")) {
             this.capImageFile = "res/captured/wB.png";

@@ -19,6 +19,7 @@ public abstract class Piece {
     protected SpecialMoveGenerator specialMoveGenerator;
 
     protected Board board;
+    protected int value;
     private final String COLOR;
     protected String capImageFile;
     protected Image dispImage, capImage;
@@ -125,6 +126,10 @@ public abstract class Piece {
 
     private void setMoveSet(List<Move> moves) {
         this.moveSet = moves;
+    }
+
+    public int getValue() {
+        return value;
     }
 
     @Override

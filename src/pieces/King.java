@@ -12,6 +12,7 @@ public class King extends Piece {
     public King(String color, String pos, Board board) {
         super(color, pos, "K", board);
         this.type = "K";
+        this.value = 1000;
         if (color.equals("white")) {
             this.dispImage = new Image(0, 0, "res/images/wK.png");
             this.capImage = new Image(0, 0, "res/captured/wK.png");

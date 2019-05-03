@@ -8,6 +8,8 @@ import pieces.*;
 import java.util.*;
 
 public class Board {
+    //TODO: major refactoring esp re: move class
+    //TODO: make a way to create a deep copy of a board
     private String turn = "white";
     private List<FenNotation> allFens = new ArrayList<>();
     private Piece[][] internalBoard = new Piece[8][8]; //The board that the external board shows
@@ -15,7 +17,7 @@ public class Board {
     private List<Piece> whitePieces = new ArrayList<>(16); //Contains all non-captured white pieces
     private List<Piece> blackPieces = new ArrayList<>(16); //Contains all non-captured black pieces
     private List<String> blackMoves = new ArrayList<>(), whiteMoves = new ArrayList<>();
-    private Collection<Move> allMoves = new ArrayList<>();
+    private List<Move> allMoves = new ArrayList<>();
     private RuleEnforcer ruler = new RuleEnforcer(this);
 
 
@@ -97,11 +99,12 @@ public class Board {
     public void move(Piece piece, Move move) {
         int capSize = captured.size();
         resetCurrentMove(); //resets all of the variables so we don't overlap anything
-        oldTile = piece.getPos();
-        checkOthePieceCan(piece, move);
+        oldTile = move.getPiece().getPos();
+        //oldTile = piece.getPos();
+        checkOthePieceCan(move.getPiece(), move);
 
 
-        if (piece.getSpecialMoveSet().contains(move)) {
+        if (move.getPiece().getSpecialMoveSet().contains(move)) {
             piece.useSpecialMove(move);
 
             //Checks to see if this move was a castle
@@ -109,14 +112,14 @@ public class Board {
                 didCastle = true;
 
         } else {
-            movePiece(piece, move);
+            movePiece(move.getPiece(), move);
         }
-        piece.addMoveCount();
-        piece.setLastMove(numMoves);
+        move.getPiece().addMoveCount();
+        move.getPiece().setLastMove(numMoves);
         numMoves++;
         endTurn();
 
-        updateMoveLists(capSize, piece, move);
+        updateMoveLists(capSize, move.getPiece(), move);
 
     }
 
@@ -313,7 +316,7 @@ public class Board {
         updateAllPieceMoveLists();
         updateBoardMoveList();
     }
-    
+
     /**
      * Moves a piece, setting its position to the input move and physically moving it on the board.
      */
@@ -617,7 +620,7 @@ public class Board {
         return whiteMoves;
     }
 
-    public Collection<Move> getAllMoves() {
+    public List<Move> getAllMoves() {
         return allMoves;
     }
 

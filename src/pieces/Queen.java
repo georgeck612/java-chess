@@ -12,6 +12,7 @@ public class Queen extends Piece {
     public Queen(String color, String pos, Board board) {
         super(color, pos, "Q", board);
         this.type = "Q";
+        this.value = 9;
         if (color.equals("white")) {
             this.capImageFile = "res/captured/wQ.png";
             this.dispImage = new Image(0, 0, "res/images/wQ.png");
