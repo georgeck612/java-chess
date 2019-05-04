@@ -136,5 +136,16 @@ public abstract class Piece {
     public String toString() {
         return COLOR.substring(0, 1) + type + " at " + pos;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Move)) {
+            return false;
+        }
+
+        Piece piece = (Piece) obj;
+
+        return type.equals(piece.getType()) && COLOR.equals(piece.getColor()) && pos.equals(piece.getPos());
+    }
 }
 
