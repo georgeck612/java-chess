@@ -18,16 +18,16 @@ public class MoveGenerator {
     /**
      * Checks that all the squares between two squares on the same rank are empty.
      *
-     * @param rank  The rank on which the two squares lie.
-     * @param file1 The file of the first square.
-     * @param file2 The file of the second square.
+     * @param common  The common rank or file which the two squares share.
+     * @param compare1 The differing position of the first square.
+     * @param compare2 The differing position of the second square.
      * @return <code>true</code> if all the squares between the first and second squares are empty, <code>false</code> if not.
      */
-    private boolean rankFileCheck(int rank, int file1, int file2) {
-        int start = (file1 > file2 ? file2 : file1);
-        int end = (file1 == start ? file2 : file1);
+    private boolean rankFileCheck(int common, int compare1, int compare2, boolean rankOrFile) {
+        int start = (compare1 > compare2 ? compare2 : compare1);
+        int end = (compare1 == start ? compare2 : compare1);
         for (int i = start + 1; i < end; i++) {
-            if (board.isOccupied(Converter.coordToNotation(rank, i))) {
+            if (board.isOccupied(Converter.coordToNotation(common, i)) && rankOrFile || board.isOccupied(Converter.coordToNotation(i, common)) && !rankOrFile) {
                 return false;
             }
         }
@@ -78,9 +78,9 @@ public class MoveGenerator {
      */
     private boolean isClear(int rank1, int file1, int rank2, int file2, double slope) {
         if (Math.abs(slope) == 0) {
-            return rankFileCheck(rank2, file1, file2);
+            return rankFileCheck(rank2, file1, file2, true);
         } else if (slope == Double.POSITIVE_INFINITY || slope == Double.NEGATIVE_INFINITY) {
-            return rankFileCheck(file2, rank1, rank2);
+            return rankFileCheck(file2, rank1, rank2, false);
         } else if (Math.abs(slope) == 1) {
             return diagonalCheck(rank1, file1, rank2, file2, slope);
         }
