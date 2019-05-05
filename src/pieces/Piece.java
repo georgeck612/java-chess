@@ -139,7 +139,7 @@ public abstract class Piece {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Move)) {
+        if (!(obj instanceof Piece)) {
             return false;
         }
 
