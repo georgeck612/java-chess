@@ -101,7 +101,7 @@ public class Board {
         resetCurrentMove(); //resets all of the variables so we don't overlap anything
         oldTile = move.getPiece().getPos();
         //oldTile = piece.getPos();
-        checkOthePieceCan(move.getPiece(), move);
+        checkOtherPieceCan(move.getPiece(), move);
 
 
         if (move.getPiece().getSpecialMoveSet().contains(move)) {
@@ -148,7 +148,7 @@ public class Board {
      * @param piece
      * @param move
      */
-    private void checkOthePieceCan(Piece piece, Move move) {
+    private void checkOtherPieceCan(Piece piece, Move move) {
         if (piece.getType().equals("N") || piece.getType().equals("B") || piece.getType().equals("R")) {
             if (piece.getColor().equals("white")) {
                 for (Piece p : whitePieces) {
