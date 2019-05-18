@@ -24,6 +24,9 @@ public class Rook extends Piece {
             this.capImage = new Image(0, 0, "res/captured/bR.png");
         }
     }
+    public Rook(Rook rook) {
+        super(rook.getColor(), rook.getPos(), rook.type, rook.board);
+    }
 
     public boolean isRuleViolation(Move move) {
         double rankDiff = move.getRankDiff();

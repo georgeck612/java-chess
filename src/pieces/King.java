@@ -22,6 +22,10 @@ public class King extends Piece {
         }
     }
 
+    public King(King king) {
+        super(king.getColor(), king.getPos(), king.type, king.board);
+    }
+
     public boolean isRuleViolation(Move move) {
         double rankDiff = move.getRankDiff();
         double fileDiff = move.getFileDiff();

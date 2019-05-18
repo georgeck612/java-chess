@@ -42,6 +42,43 @@ public class Board {
         setFenNotation();
     }
 
+
+    /**
+     * NOTE: THIS COPY CONSTRUCTOR MAY NOT BE FULLY OPTIMIZED; PRIORITIZING REDUNDANCY UNTIL 100% CERTAIN OF CORRECT FUNCTIONALITY
+     */
+    public Board(Board board) {
+        this.turn = board.turn;
+        this.allFens = new ArrayList<>(board.allFens); //TODO: does copying Lists this way work properly?
+        this.internalBoard = board.internalBoard; //TODO: deep copy 2d array
+        this.captured = new ArrayDeque<>(board.captured);
+        this.whitePieces = new ArrayList<>(board.whitePieces);
+        this.blackPieces = new ArrayList<>(board.blackPieces);
+        this.whiteMoves = new ArrayList<>(board.whiteMoves);
+        this.blackMoves = new ArrayList<>(board.blackMoves);
+        this.allMoves = new ArrayList<>(board.allMoves);
+        this.ruler = new RuleEnforcer(board.ruler);
+        this.numMoves = board.numMoves;
+        this.fiftyMoveTrack = board.fiftyMoveTrack;
+        this.wK = new King(board.wK);
+        this.bK = new King(board.bK);
+        this.wR1 = new Rook(board.wR1);
+        this.wR2 = new Rook(board.wR2);
+        this.bR1 = new Rook(board.bR1);
+        this.bR2 = new Rook(board.bR2);
+        this.oldTile = board.oldTile;
+        this.moveTile = board.moveTile;
+        this.movePromoted = board.movePromoted;
+        this.movePiece = board.movePiece; //TODO: deep copy of abstract class??
+        this.otherPiece = board.otherPiece;
+        this.didTake = board.didTake;
+        this.didCheck = board.didCheck;
+        this.didCheckmate = board.didCheckmate;
+        this.didDraw = board.didDraw;
+        this.didCastle = board.didCastle;
+        this.didPromote = board.didPromote;
+        this.otherPieceCan = board.otherPieceCan;
+    }
+
     /**
      * Creates the sets of pieces needed for the game.
      */
