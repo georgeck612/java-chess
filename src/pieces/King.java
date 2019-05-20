@@ -22,8 +22,9 @@ public class King extends Piece {
         }
     }
 
-    public King(King king) {
-        super(king.getColor(), king.getPos(), king.type, king.board);
+    @Override
+    public Piece copyPiece(Board board) {
+        return new King(getColor(), getPos(), board);
     }
 
     public boolean isRuleViolation(Move move) {

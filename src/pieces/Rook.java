@@ -36,6 +36,11 @@ public class Rook extends Piece {
     }
 
     @Override
+    public Piece copyPiece(Board board) {
+        return new Rook(getColor(), getPos(), board);
+    }
+
+    @Override
     public List<Move> generateSpecialMoves() {
         return null;
     }

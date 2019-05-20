@@ -14,6 +14,13 @@ public class FenNotation{
         fullFen = boardFen + " " + restFen;
     }
 
+    public FenNotation(FenNotation fenNotation, Board board) { //no idea if this works properly but I don't think it matters rn
+        this.board = board;
+        fenBoardNotation();
+        restOfFen();
+        this.fullFen = fenNotation.boardFen + " " + fenNotation.restFen;
+    }
+
 
 
     private void fenBoardNotation(){

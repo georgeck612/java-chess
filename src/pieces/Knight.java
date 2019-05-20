@@ -24,6 +24,11 @@ public class Knight extends Piece {
         }
     }
 
+    @Override
+    public Piece copyPiece(Board board) {
+        return new Knight(getColor(), getPos(), board);
+    }
+
     public boolean isRuleViolation(Move move) {
         double rankDiff = move.getRankDiff();
         double fileDiff = move.getFileDiff();

@@ -24,6 +24,11 @@ public class Queen extends Piece {
         }
     }
 
+    @Override
+    public Piece copyPiece(Board board) {
+        return new Queen(getColor(), getPos(), board);
+    }
+
     public boolean isRuleViolation(Move move) {
         double rankDiff = move.getRankDiff();
         double fileDiff = move.getFileDiff();

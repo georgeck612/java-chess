@@ -14,9 +14,6 @@ public class RuleEnforcer {
     public RuleEnforcer(Board board) {
         this.board = board;
     }
-    public RuleEnforcer(RuleEnforcer ruleEnforcer) {
-        this.board = ruleEnforcer.board;
-    }
 
     /**
      * takes a Collection of moves for a given piece and checks to see if any of those moves would result

@@ -25,6 +25,10 @@ public class Bishop extends Piece {
         }
     }
 
+    @Override
+    public Piece copyPiece(Board board) {
+        return new Bishop(getColor(), getPos(), board);
+    }
 
     public boolean isRuleViolation(Move move) {
         double rankDiff = move.getRankDiff();

@@ -22,7 +22,7 @@ import java.util.List;
 
 
 public class BoardSetup extends CanvasWindow implements MouseListener, MouseMotionListener {
-    public Board board;
+    private Board board;
     private ChessBoard gameBoard; //The GUI board
     private Piece sPiece = null; //The current highlighted piece on the GUI board
     private int sPX, sPY, capDispSpace = 12; //sPX and sPY are the sPiece x and y spots in the internal board

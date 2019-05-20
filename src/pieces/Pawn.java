@@ -26,6 +26,11 @@ public class Pawn extends Piece {
         }
     }
 
+    @Override
+    public Piece copyPiece(Board board) {
+        return new Pawn(getColor(), getPos(), board);
+    }
+
     public boolean isRuleViolation(Move move) {
         double destRank = move.getEndRank();
         double startRank = move.getStartRank();

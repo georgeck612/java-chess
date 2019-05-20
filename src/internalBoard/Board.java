@@ -5,7 +5,10 @@ import moveTools.FenNotation;
 import moveTools.RuleEnforcer;
 import pieces.*;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 
 public class Board {
     //TODO: major refactoring esp re: move class
@@ -48,28 +51,31 @@ public class Board {
      */
     public Board(Board board) {
         this.turn = board.turn;
-        this.allFens = new ArrayList<>(board.allFens); //TODO: does copying Lists this way work properly?
-        this.internalBoard = board.internalBoard; //TODO: deep copy 2d array
-        this.captured = new ArrayDeque<>(board.captured);
-        this.whitePieces = new ArrayList<>(board.whitePieces);
-        this.blackPieces = new ArrayList<>(board.blackPieces);
+        this.whitePieces = copyWhitePieces(this, board.whitePieces);
+        this.blackPieces = copyBlackPieces(this, board.blackPieces);
+        this.wK = (King) board.wK.copyPiece(this);
+        this.bK = (King) board.bK.copyPiece(this);
+        this.wR1 = (Rook) board.wR1.copyPiece(this);
+        this.wR2 = (Rook) board.wR2.copyPiece(this);
+        this.bR1 = (Rook) board.bR1.copyPiece(this);
+        this.bR2 = (Rook) board.bR2.copyPiece(this);
+        this.internalBoard = copyInternalBoard(this);
+        this.captured = copyCaptured(this, board.captured);
         this.whiteMoves = new ArrayList<>(board.whiteMoves);
         this.blackMoves = new ArrayList<>(board.blackMoves);
-        this.allMoves = new ArrayList<>(board.allMoves);
-        this.ruler = new RuleEnforcer(board.ruler);
+        this.allMoves = copyMoves(this, board.allMoves);
+        this.ruler = new RuleEnforcer(this);
         this.numMoves = board.numMoves;
         this.fiftyMoveTrack = board.fiftyMoveTrack;
-        this.wK = new King(board.wK);
-        this.bK = new King(board.bK);
-        this.wR1 = new Rook(board.wR1);
-        this.wR2 = new Rook(board.wR2);
-        this.bR1 = new Rook(board.bR1);
-        this.bR2 = new Rook(board.bR2);
         this.oldTile = board.oldTile;
         this.moveTile = board.moveTile;
         this.movePromoted = board.movePromoted;
-        this.movePiece = board.movePiece; //TODO: deep copy of abstract class??
-        this.otherPiece = board.otherPiece;
+        if (board.movePiece != null) {
+            this.movePiece = board.movePiece.copyPiece(this);
+        }
+        if (board.otherPiece != null) {
+            this.otherPiece = board.otherPiece.copyPiece(this);
+        }
         this.didTake = board.didTake;
         this.didCheck = board.didCheck;
         this.didCheckmate = board.didCheckmate;
@@ -77,6 +83,64 @@ public class Board {
         this.didCastle = board.didCastle;
         this.didPromote = board.didPromote;
         this.otherPieceCan = board.otherPieceCan;
+        this.allFens = copyFens(this, board.allFens);
+        this.updateMoves();
+    }
+
+    private List<Move> copyMoves(Board board, List<Move> moves) {
+        List<Move> result = new ArrayList<>();
+        for (Move move : allMoves) {
+            result.add(new Move(move.getPiece().copyPiece(board), move.getEndPos()));
+        }
+        return result;
+    }
+
+    private Piece[][] copyInternalBoard(Board board) {
+        Piece[][] result = new Piece[8][8];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (internalBoard[i][j] != null) {
+                    result[i][j] = internalBoard[i][j].copyPiece(board);
+                }
+            }
+        }
+        return result;
+    }
+
+    private Deque<Piece> copyCaptured(Board board, Deque<Piece> cap) {
+        Deque<Piece> result = new ArrayDeque<>();
+        Deque<Piece> temp = new ArrayDeque<>();
+        for (Piece piece : cap) {
+            temp.push(piece.copyPiece(board));
+        }
+        for (Piece piece : temp) { //preserves original order
+            result.push(piece);
+        }
+        return result;
+    }
+
+    private List<FenNotation> copyFens(Board board, List<FenNotation> fens) {
+        List<FenNotation> result = new ArrayList<>();
+        for (FenNotation fenNotation : fens) {
+            result.add(new FenNotation(fenNotation, board));
+        }
+        return result;
+    }
+
+    private List<Piece> copyWhitePieces(Board board, List<Piece> pieces) {
+        List<Piece> result = new ArrayList<>();
+        for (Piece piece : pieces) {
+            result.add(piece.copyPiece(board));
+        }
+        return result;
+    }
+
+    private List<Piece> copyBlackPieces(Board board, List<Piece> pieces) {
+        List<Piece> result = new ArrayList<>();
+        for (Piece piece : pieces) {
+            result.add(piece.copyPiece(board));
+        }
+        return result;
     }
 
     /**

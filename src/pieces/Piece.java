@@ -76,6 +76,8 @@ public abstract class Piece {
      */
     public abstract void useSpecialMove(Move move);
 
+    public abstract Piece copyPiece(Board board);
+
     public void addMoveCount() {
         moveCount++;
     }
