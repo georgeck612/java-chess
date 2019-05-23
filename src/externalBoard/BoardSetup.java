@@ -7,6 +7,7 @@ import comp124graphics.Image;
 
 import ChessBoard.*;
 import Menu.ChessMenu;
+import evaluation.Evaluator;
 import internalBoard.Board;
 import internalBoard.Move;
 import moveTools.Converter;
@@ -22,7 +23,7 @@ import java.util.List;
 
 
 public class BoardSetup extends CanvasWindow implements MouseListener, MouseMotionListener {
-    private Board board;
+    public Board board;
     private ChessBoard gameBoard; //The GUI board
     private Piece sPiece = null; //The current highlighted piece on the GUI board
     private int sPX, sPY, capDispSpace = 12; //sPX and sPY are the sPiece x and y spots in the internal board
@@ -74,6 +75,8 @@ public class BoardSetup extends CanvasWindow implements MouseListener, MouseMoti
     public BoardSetup(){
         this("Chess", 1000, 800);
     }
+
+
 
 
 

@@ -89,7 +89,7 @@ public class Board {
 
     private List<Move> copyMoves(Board board, List<Move> moves) {
         List<Move> result = new ArrayList<>();
-        for (Move move : allMoves) {
+        for (Move move : moves) {
             result.add(new Move(move.getPiece().copyPiece(board), move.getEndPos()));
         }
         return result;
